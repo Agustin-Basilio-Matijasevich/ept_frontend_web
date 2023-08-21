@@ -18,7 +18,7 @@ class Welcome extends StatelessWidget {
               icon: Icon(Icons.person),
               label: Text('Ir al BackOffice'),
               onPressed: () {
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
               },
             ),
           ],
