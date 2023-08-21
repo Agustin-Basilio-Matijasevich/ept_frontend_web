@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "ept-prod-424d6"
-  }
+    "default": "ept-qa-51bf5",
+    "QA": "ept-qa-51bf5"
+  },
+  "targets": {},
+  "etags": {}
 }
