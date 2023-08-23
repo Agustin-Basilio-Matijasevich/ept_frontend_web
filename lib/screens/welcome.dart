@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ept_frontend/screens/login.dart';
+import 'package:ept_frontend/screens/login2.dart';
 
 class Welcome extends StatelessWidget {
 
@@ -18,7 +18,7 @@ class Welcome extends StatelessWidget {
               icon: Icon(Icons.person),
               label: Text('Ir al BackOffice'),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Login2()));
               },
             ),
           ],
