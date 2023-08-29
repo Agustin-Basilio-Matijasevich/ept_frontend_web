@@ -1,3 +1,4 @@
+import 'package:ept_frontend/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:ept_frontend/services/auth.dart';
 
@@ -9,6 +10,10 @@ class Login2 extends StatelessWidget {
     final bool esPantallaChica = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: const BackButton(          
+        ),
+      ),
         body: Center(
             child: esPantallaChica
                 ? const Column(
