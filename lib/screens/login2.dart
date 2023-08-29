@@ -16,7 +16,7 @@ class Login2 extends StatelessWidget {
       ),
         body: Center(
             child: esPantallaChica
-                ? const Column(
+                ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _Logo(),
@@ -26,7 +26,7 @@ class Login2 extends StatelessWidget {
                 : Container(
                     padding: const EdgeInsets.all(32.0),
                     constraints: const BoxConstraints(maxWidth: 800),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Expanded(child: _Logo()),
                         Expanded(
@@ -101,11 +101,15 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                 });
                 return null;
               },
+              onChanged: (val) {
+                setState(() => email = val);
+              },
               decoration: const InputDecoration(
                 labelText: 'Email',
                 hintText: 'Ingrese su email',
                 prefixIcon: Icon(Icons.email),
                 border: OutlineInputBorder(),
+
               ),
             ),
             _gap(),
@@ -123,6 +127,9 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                   password = value;
                 });
                 return null;
+              },
+              onChanged: (val) {
+                setState(() => password = val);
               },
               obscureText: !esVisible,
               decoration: InputDecoration(
