@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       initialData: null,
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        scrollBehavior: ScrollBehavior(),
+        //scrollBehavior: ScrollBehavior(),
         home: Wrapper(),
       ),
     );

@@ -13,20 +13,12 @@ class Login2 extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.blue,
-        actions: const <Widget>[
-          BackButton(
-            style: ButtonStyle(
-              alignment: Alignment.bottomLeft,
-            ),
-            //onPressed: () => Navigator.pop(context),
-          )
-        ],
       ),
       body: Center(
         child: esPantallaChica
-            ? const Column(
+            ? Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: const [
                   _Logo(),
                   ContenidoForm(),
                 ],
@@ -34,8 +26,8 @@ class Login2 extends StatelessWidget {
             : Container(
                 padding: const EdgeInsets.all(32.0),
                 constraints: const BoxConstraints(maxWidth: 800),
-                child: const Row(
-                  children: [
+                child: Row(
+                  children: const [
                     Expanded(child: _Logo()),
                     Expanded(
                       child: Center(child: ContenidoForm()),
