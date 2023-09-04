@@ -44,6 +44,13 @@ dependencies:
 
   #Demas dependencias
   provider: ^6.0.5
+  comment_box: ^0.0.18
+
+  # Paquete que permite abrir una URL en una nueva ventana del navegador.
+  
+  #flutter_html: ^2.2.1 NO ANDA
+  flutter_widget_from_html: ^0.10.4
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +62,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,7 +78,25 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/logo.jpeg
+    #Images
+    - assets/images/logo.png
+    - assets/images/logo.jpeg #Intentar no usar
+    - assets/images/background.png
+    - assets/images/background.jpeg
+    - assets/images/backgroundBlurred.jpeg
+    - assets/images/backgroundWhiteBlur.jpeg
+
+    #Gifs
+    - assets/gifs/robotTyping.gif
+
+  # Fonts
+
+  fonts:
+    - family: CustomFonts
+      fonts:
+        - asset: fonts/CustomFonts.ttf
+
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -82,18 +109,7 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+
+  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -2,36 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:ept_frontend/services/auth.dart';
 
 class Login2 extends StatelessWidget {
-  Login2({Key? key}) : super(key: key); 
+  Login2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final bool esPantallaChica = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-        body: Center(
-            child: esPantallaChica
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _Logo(),
-                      ContenidoForm(),
-                    ],
-                  )
-                : Container(
-                    padding: const EdgeInsets.all(32.0),
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: Row(
-                      children: [
-                        Expanded(child: _Logo()),
-                        Expanded(
-                          child: Center(child: ContenidoForm()),
-                        ),
-                      ],
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.blue,
+      ),
+      body: Center(
+        child: esPantallaChica
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  _Logo(),
+                  ContenidoForm(),
+                ],
+              )
+            : Container(
+                padding: const EdgeInsets.all(32.0),
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Row(
+                  children: const [
+                    Expanded(child: _Logo()),
+                    Expanded(
+                      child: Center(child: ContenidoForm()),
                     ),
-                  )
-                )
-              );
+                  ],
+                ),
+              ),
+      ),
+    );
   }
 }
 
@@ -40,15 +45,11 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool esPantallaChica = MediaQuery.of(context).size.width < 600;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset('assets/images/logo.jpeg'),
-        const Padding(
-          padding: EdgeInsets.all(16.0)          
-        ),
+        Image.asset('assets/images/logo.png'),
+        const Padding(padding: EdgeInsets.all(16.0)),
       ],
     );
   }
@@ -62,12 +63,26 @@ class ContenidoForm extends StatefulWidget {
 
 class EstadoContenidoForm extends State<ContenidoForm> {
   bool esVisible = false;
-  bool recordarContrasenia = false;  
-  String email = '';
-  String password = '';
-  String error = '';
-  
+  bool recordarContrasenia = false;
+  String? email = '';
+  String? password = '';
+  String? error = '';
+
   final AuthService auth = AuthService();
+
+  String? emailValidator(String? email) {
+    // validacion email
+    if (email == null || email.isEmpty) {
+      return 'El email no puede estar vacío';
+    }
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+    if (!emailValid) {
+      return 'Email invalido';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,21 +94,15 @@ class EstadoContenidoForm extends State<ContenidoForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-              validator: (value) {                
-                // validacion email                
-                if (value == null || value.isEmpty) {
-                  return 'El email no puede estar vacío';
-                }
-                bool emailValid = RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    .hasMatch(value);
-                if (!emailValid) {
-                  return 'Email invalido';
+              validator: (String? value) {
+                if (emailValidator(value) == null) {
+                  setState(() {
+                    email = value;
+                  });
+                } else {
+                  return emailValidator(email);
                 }
 
-                setState(() {
-                  email = value;
-                });
                 return null;
               },
               onChanged: (val) {
@@ -104,13 +113,14 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                 hintText: 'Ingrese su email',
                 prefixIcon: Icon(Icons.email),
                 border: OutlineInputBorder(),
-
               ),
             ),
             _gap(),
             TextFormField(
-              validator: (value) {
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (String? value) {
                 if (value == null || value.isEmpty) {
+                  print('La contrasenia no puede estar vacia');
                   return 'La contraseña no puede estar vacía';
                 }
 
@@ -118,30 +128,29 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                   return 'La contraseña debe tener al menos 6 caracteres';
                 }
 
-                setState(() {
-                  password = value;
-                });
                 return null;
               },
-              onChanged: (val) {
-                setState(() => password = val);
+              onFieldSubmitted: (String? val) {
+                setState(() {
+                  if (val!.isNotEmpty) password = val;
+                });
               },
               obscureText: !esVisible,
               decoration: InputDecoration(
-                  labelText: 'Contraseña',
-                  hintText: 'Ingrese su contraseña',
-                  prefixIcon: const Icon(Icons.lock),
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(esVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        esVisible = !esVisible;
-                      });
-                    },
-                  )),
+                labelText: 'Contraseña',
+                hintText: 'Ingrese su contraseña',
+                prefixIcon: const Icon(Icons.lock),
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon:
+                      Icon(esVisible ? Icons.visibility_off : Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      esVisible = !esVisible;
+                    });
+                  },
+                ),
+              ),
             ),
             _gap(),
             CheckboxListTile(
@@ -173,8 +182,13 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                   ),
                 ),
                 onPressed: () async {
-                  dynamic result = await auth.login(email, password);
-                  if(!context.mounted) return;
+                  if (email != null &&
+                      email!.isNotEmpty &&
+                      password != null &&
+                      password!.isNotEmpty) {
+                    dynamic result = await auth.login(email!, password!);
+                  }
+                  if (!context.mounted) return;
                   Navigator.pop(context);
                   //Falta verificar por las cuentas guardadas en firebase.
                 },
