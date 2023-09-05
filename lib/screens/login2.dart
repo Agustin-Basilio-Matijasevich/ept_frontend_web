@@ -62,6 +62,7 @@ class ContenidoForm extends StatefulWidget {
 }
 
 class EstadoContenidoForm extends State<ContenidoForm> {
+  final _formKey = GlobalKey<FormState>();
   bool esVisible = false;
   bool recordarContrasenia = false;
   String? email = '';
@@ -89,6 +90,7 @@ class EstadoContenidoForm extends State<ContenidoForm> {
     return Container(
       constraints: const BoxConstraints(maxWidth: 300),
       child: Form(
+        key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +122,6 @@ class EstadoContenidoForm extends State<ContenidoForm> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  print('La contrasenia no puede estar vacia');
                   return 'La contraseña no puede estar vacía';
                 }
 
@@ -130,10 +131,8 @@ class EstadoContenidoForm extends State<ContenidoForm> {
 
                 return null;
               },
-              onFieldSubmitted: (String? val) {
-                setState(() {
-                  if (val!.isNotEmpty) password = val;
-                });
+              onChanged: (String? val) {
+                setState(() => password = val);
               },
               obscureText: !esVisible,
               decoration: InputDecoration(
@@ -182,15 +181,13 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                   ),
                 ),
                 onPressed: () async {
-                  if (email != null &&
-                      email!.isNotEmpty &&
-                      password != null &&
-                      password!.isNotEmpty) {
-                    dynamic result = await auth.login(email!, password!);
+                  Future login;
+                  if (_formKey.currentState!.validate()) {
+                    login = auth.login(email!, password!);
+                    // print(login.toString());
                   }
-                  if (!context.mounted) return;
-                  Navigator.pop(context);
-                  //Falta verificar por las cuentas guardadas en firebase.
+
+                  //Falta vformKeyficar por las cuentas guardadas en firebase.
                 },
               ),
             ),
