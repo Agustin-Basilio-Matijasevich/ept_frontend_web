@@ -1,8 +1,11 @@
 import 'package:comment_box/comment/test.dart';
+import 'package:ept_frontend/screens/about.dart';
 import 'package:ept_frontend/screens/comment_section.dart';
 import 'package:ept_frontend/screens/contacts.dart';
 import 'package:ept_frontend/screens/download.dart';
+import 'package:ept_frontend/screens/photo_gallery.dart';
 import 'package:ept_frontend/screens/test_screen.dart';
+import 'package:ept_frontend/widgets/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:ept_frontend/screens/login2.dart';
 //import 'package:flutter/services.dart';
@@ -40,7 +43,7 @@ class Welcome extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Login2()),
+                MaterialPageRoute(builder: (context) => const Login()),
               );
             },
           ),
@@ -62,10 +65,15 @@ class Welcome extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Inicio'),
+              leading: const Icon(Icons.question_mark),
+              title: const Text('¿Quienes somos?'),
               onTap: () => {
-                debugPrint('Apretaste el boton de inicio'),
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => AboutUs(),
+                  ),
+                ),
               },
             ),
             ListTile(
@@ -105,6 +113,18 @@ class Welcome extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.browse_gallery),
+              title: const Text('Galería'),
+              onTap: () => {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => Gallery(),
+                  ),
+                ),
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.science),
               title: const Text('TEST'),
               onTap: () => {
@@ -119,20 +139,30 @@ class Welcome extends StatelessWidget {
           ],
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: Image.asset("assets/images/backgroundWhiteBlur.jpeg").image,
-            fit: BoxFit.cover,
-          ),
-        ),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            _Logo(),
-            _CompanyDescription(),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: Image.asset("assets/images/backgroundWhiteBlur.jpeg")
+                      .image,
+                  fit: BoxFit.cover,
+                  alignment: AlignmentDirectional.bottomCenter,
+                ),
+              ),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  _Logo(),
+                  _CompanyDescription(),
+                ],
+              ),
+            ),
+            const PageFooter(),
           ],
         ),
       ),

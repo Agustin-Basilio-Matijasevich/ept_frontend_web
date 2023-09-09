@@ -51,6 +51,7 @@ dependencies:
   #flutter_html: ^2.2.1 NO ANDA
   flutter_widget_from_html: ^0.10.4
   url_launcher: ^6.1.11
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +86,7 @@ flutter:
     - assets/images/background.jpeg
     - assets/images/backgroundBlurred.jpeg
     - assets/images/backgroundWhiteBlur.jpeg
+    - assets/images/netBrokeWhite.png
 
     #Gifs
     - assets/gifs/robotTyping.gif
