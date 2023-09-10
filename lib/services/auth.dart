@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ept_frontend/models/usuario.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthService
 {
@@ -8,15 +9,15 @@ class AuthService
   //Metodo para obtener el usuario personalizado mediante la escucha de un stream
   Stream<Usuario?> get usuario
   {
-    return _auth.authStateChanges().map(_builduser); //Retorna la escucha del servicio de estado de autenticacion de firebase que contiene el usuario de firebase, pero antes lo pasa por el costructor de usuario personalizado
+    return _auth.authStateChanges().asyncMap((user) => _builduser(user)); //Retorna la escucha del servicio de estado de autenticacion de firebase que contiene el usuario de firebase, pero antes lo pasa por el costructor de usuario personalizado
   }
 
   //Metodo Constructor de usuario personalizado, recibe como parametro el usuario de firebase y devuelve el usuario personalizado, si el parametro es null, devuelve null.
-  Usuario? _builduser(User? user)
+  Future<Usuario>? _builduser(User? user)
   {
     if (user != null)
     {
-      return Usuario(user);
+      return UsuarioBuilder.build(user);
     }
     else
     {
