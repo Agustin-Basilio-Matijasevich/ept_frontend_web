@@ -5,21 +5,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class GaleriaIMGService{
 
-  final FirebaseStorage _db = FirebaseStorage.instance;
-  final Reference folder = FirebaseStorage.instance.ref(DefaultStorageOption.rootfolder);
+  final Reference _folder = FirebaseStorage.instance.ref(DefaultStorageOption.rootfolder);
 
-  Future<List<Reference>> getGalleryReferences() async {
+  Future<List<Reference>> _getGalleryReferences() async {
     try{
-      final ListResult result = await folder.child("galeria").listAll();
+      final ListResult result = await _folder.child("galeria").listAll();
       return result.items;
     }catch(e){
       return [];
     }
   }
 
-  Future<String?> getObjectURL(Reference ref) async {
+  Future<String?> _getObjectURL(Reference ref) async {
     try{
-      final String url = await folder.child(ref.fullPath).getDownloadURL();
+      final String url = await _folder.child(ref.fullPath).getDownloadURL();
       return url;
     }catch(e){
       return null;
@@ -27,7 +26,7 @@ class GaleriaIMGService{
   }
 
   Future<List<String>> getGalleryIMGS() async {
-    final List<Reference> refs = await getGalleryReferences();
+    final List<Reference> refs = await _getGalleryReferences();
     List<String> imagenes = [];
 
     if (refs.isEmpty)
@@ -37,7 +36,7 @@ class GaleriaIMGService{
     else
       {
         for (var ref in refs) {
-          final String? url = await getObjectURL(ref);
+          final String? url = await _getObjectURL(ref);
           if (url != null)
             {
               imagenes.add(url);
