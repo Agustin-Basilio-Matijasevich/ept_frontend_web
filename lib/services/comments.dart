@@ -3,7 +3,7 @@ import 'package:ept_frontend/models/comentario.dart';
 
 class CommentsService {
 
-  final FirebaseFirestore db = FirebaseFirestore.instance; //Inicializo instancia de firestore
+  final FirebaseFirestore _db = FirebaseFirestore.instance; //Inicializo instancia de firestore
 
   //Get comentarios
   Future<List<Comentario>> getComentarios() async {
@@ -11,7 +11,7 @@ class CommentsService {
     QuerySnapshot coleccion;
 
     try{
-      coleccion = await db.collection("comentarios_publicos").get();
+      coleccion = await _db.collection("comentarios_publicos").get();
     }
     catch (e){
       comentarios.add(Comentario("ERROR","Problema al intentar obtener los comentarios",CommentPuntaje.unaestrella));
@@ -45,7 +45,7 @@ class CommentsService {
   //Guardar comentario
   Future<bool> grabaComentario(Comentario comentario) async {
     try{
-      await db.collection("comentarios_publicos").add({"autor": comentario.autor,"contenido": comentario.contenido,"puntaje": comentario.puntaje.toString()});
+      await _db.collection("comentarios_publicos").add({"autor": comentario.autor,"contenido": comentario.contenido,"puntaje": comentario.puntaje.toString()});
       return true;
     }
     catch (e) {
