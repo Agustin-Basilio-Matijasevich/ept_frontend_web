@@ -79,8 +79,7 @@ class Usuario {
 
   @override
   String toString(){
-    final String srol = rol.toString();
-    return 'UID: $uid, Rol: $srol, Correo: $correo, Nombre: $nombre, Foto: $foto';
+    return 'UID: $uid, Rol: $rol, Correo: $correo, Nombre: $nombre, Foto: $foto';
   }
 
 }
