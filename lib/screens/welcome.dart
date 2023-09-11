@@ -3,12 +3,14 @@ import 'package:ept_frontend/screens/about.dart';
 import 'package:ept_frontend/screens/comment_section.dart';
 import 'package:ept_frontend/screens/contacts.dart';
 import 'package:ept_frontend/screens/download.dart';
+import 'package:ept_frontend/screens/enrolment.dart';
 import 'package:ept_frontend/screens/photo_gallery.dart';
 import 'package:ept_frontend/screens/test_screen.dart';
 import 'package:ept_frontend/widgets/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:ept_frontend/screens/login.dart';
 import 'package:ept_frontend/screens/Educative_Levels.dart';
+import '../widgets/login_button.dart';
 //import 'package:flutter/services.dart';
 
 class Welcome extends StatelessWidget {
@@ -32,22 +34,7 @@ class Welcome extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0.0,
         actions: <Widget>[
-          TextButton.icon(
-            style: const ButtonStyle(
-              foregroundColor: MaterialStatePropertyAll(Colors.white),
-            ),
-            icon: const Icon(Icons.person),
-            label: const Text(
-              'Ingresar',
-              style: TextStyle(fontSize: 18),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),
-              );
-            },
-          ),
+          LoginButton(),
         ],
       ),
       drawer: Drawer(
@@ -133,6 +120,18 @@ class Welcome extends StatelessWidget {
                   context,
                   MaterialPageRoute<void>(
                     builder: (BuildContext context) => Gallery(),
+                  ),
+                ),
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.article_outlined),
+              title: const Text('Inscripción'),
+              onTap: () => {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => EnrolmentForm(),
                   ),
                 ),
               },

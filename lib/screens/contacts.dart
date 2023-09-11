@@ -22,58 +22,62 @@ class Contacts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Row(
         children: [
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                tooltip: '+54 362 5171960',
-                icon: const Icon(CustomFonts.whatsapp, color: Colors.green),
-                iconSize: iconSize,
-                onPressed: () {
-                  _launchURL(whatsappUrl);
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    tooltip: '+54 362 5171960',
+                    icon: const Icon(CustomFonts.whatsapp, color: Colors.green),
+                    iconSize: iconSize,
+                    onPressed: () {
+                      _launchURL(whatsappUrl);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 1,
+                    width: 50,
+                  ),
+                  IconButton(
+                    tooltip: '@educarparatra',
+                    icon: ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (Rect bounds) => const RadialGradient(
+                        center: Alignment.topCenter,
+                        radius: 1,
+                        colors: [Colors.pink, Colors.yellow],
+                      ).createShader(bounds),
+                      child: const Icon(CustomFonts.instagram),
+                    ),
+                    iconSize: iconSize,
+                    onPressed: () {
+                      _launchURL(instagramUrl);
+                    },
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 1,
-                width: 50,
+                width: 1,
+                height: 50,
               ),
-              IconButton(
-                tooltip: '@educarparatra',
-                icon: ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (Rect bounds) => const RadialGradient(
-                    center: Alignment.topCenter,
-                    radius: 1,
-                    colors: [Colors.pink, Colors.yellow],
-                  ).createShader(bounds),
-                  child: const Icon(CustomFonts.instagram),
+              const SizedBox(
+                // decoration: BoxDecoration(
+                //   border: DottedBorder
+                // ),
+                width: 600,
+                height: 450,
+                child: HtmlWidget(
+                  '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d221.3176523268321!2d-59.012065816852726!3d-27.435541471070213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1693950955095!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
                 ),
-                iconSize: iconSize,
-                onPressed: () {
-                  _launchURL(instagramUrl);
-                },
               ),
+
+              // <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1719.9785887066685!2d-59.02091957721865!3d-27.44573126706828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1693773405065!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             ],
           ),
-          const SizedBox(
-            width: 1,
-            height: 50,
-          ),
-          const SizedBox(
-            // decoration: BoxDecoration(
-            //   border: DottedBorder
-            // ),
-            width: 600,
-            height: 450,
-            child: HtmlWidget(
-              '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d221.3176523268321!2d-59.012065816852726!3d-27.435541471070213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1693950955095!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
-            ),
-          ),
-
-          // <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1719.9785887066685!2d-59.02091957721865!3d-27.44573126706828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1693773405065!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         ],
       ),
     );
