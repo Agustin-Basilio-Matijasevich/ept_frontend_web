@@ -2,6 +2,28 @@ import 'package:flutter/material.dart';
 //import 'package:url_launcher/url_launcher.dart';
 import 'package:ept_frontend/screens/under_construction.dart';
 
+enum DownloadStatus {
+  notDownloaded,
+  fetchingDownload,
+  downloading,
+  downloaded,
+}
+
+class NewDownloadSection extends StatefulWidget {
+  const NewDownloadSection({super.key});
+
+  @override
+  State<NewDownloadSection> createState() => _NewDownloadSectionState();
+}
+
+class _NewDownloadSectionState extends State<NewDownloadSection> {
+  List<Widget> availableDownloads = [];
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class DownloadSection extends StatelessWidget {
   const DownloadSection({super.key});
 
@@ -49,7 +71,7 @@ class DownloadSection extends StatelessWidget {
                   padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
                 ),
                 child: const Text(
-                  'Aplicación Escrotorio',
+                  'Aplicación Escritorio',
                   style: TextStyle(
                     fontSize: 24,
                   ),
@@ -69,5 +91,23 @@ class DownloadSection extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _DownloadButton extends StatelessWidget {
+  final String text;
+  final DownloadStatus status;
+  final Duration transitionDuration;
+
+  const _DownloadButton({
+    super.key,
+    required this.status,
+    required this.text,
+    this.transitionDuration = const Duration(milliseconds: 500),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
