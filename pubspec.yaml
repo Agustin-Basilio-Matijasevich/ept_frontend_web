@@ -52,6 +52,7 @@ dependencies:
   flutter_widget_from_html: ^0.10.4
   url_launcher: ^6.1.11
   carousel_slider: ^4.2.1
+  flutter_image_slideshow: any
   flutter_rating_bar: ^4.0.1
   intl: ^0.18.1
 
@@ -89,6 +90,15 @@ flutter:
     - assets/images/backgroundBlurred.jpeg
     - assets/images/backgroundWhiteBlur.jpeg
     - assets/images/netBrokeWhite.png
+    - assets/images/niveles/inicial01.jpg
+    - assets/images/niveles/inicial02.jpg
+    - assets/images/niveles/inicial03.jpg
+    - assets/images/niveles/primario01.jpg
+    - assets/images/niveles/primario02.jpg
+    - assets/images/niveles/primario03.jpg
+    - assets/images/niveles/secundario01.jpg
+    - assets/images/niveles/secundario02.jpg
+    - assets/images/niveles/secundario03.jpg
 
     #Gifs
     - assets/gifs/robotTyping.gif
