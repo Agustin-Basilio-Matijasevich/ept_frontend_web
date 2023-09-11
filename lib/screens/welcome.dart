@@ -136,18 +136,6 @@ class Welcome extends StatelessWidget {
                 ),
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.science),
-              title: const Text('TEST'),
-              onTap: () => {
-                Navigator.push<void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const Test(),
-                  ),
-                ),
-              },
-            ),
           ],
         ),
       ),

@@ -16,7 +16,9 @@ class Gallery extends StatelessWidget {
     double contextWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,10 +40,6 @@ class Gallery extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [_GalleryWidget(images: images)],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [_Gap()],
             ),
           ],
         ),

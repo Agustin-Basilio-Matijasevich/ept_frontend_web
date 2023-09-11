@@ -4,12 +4,6 @@ import 'package:intl/intl.dart';
 
 import '../models/formulario_inscripcion.dart';
 
-const List<String> levels = [
-  'Inicial',
-  'Primario',
-  'Secundario',
-];
-
 class EnrolmentForm extends StatelessWidget {
   EnrolmentForm({super.key});
 
@@ -78,7 +72,6 @@ class _FormContentState extends State<FormContent> {
   String? tutorSurname;
   int? tutorId;
   String? email;
-
   NivelEducativo? level;
 
   TextEditingController controller = TextEditingController();
@@ -120,7 +113,7 @@ class _FormContentState extends State<FormContent> {
                 }
               },
               decoration: const InputDecoration(
-                labelText: 'Apellido del tutor',
+                labelText: 'Apellido del alumno',
                 border: OutlineInputBorder(),
               ),
               onChanged: (String? value) {
@@ -275,8 +268,36 @@ class _FormContentState extends State<FormContent> {
               },
             ),
             _gap,
-            const DropdownMenuExample(
-              itemList: levels,
+            //Nivel Educativo
+            DropdownMenu<NivelEducativo>(
+              width: MediaQuery.of(context).size.width > 600
+                  ? 600
+                  : MediaQuery.of(context).size.width,
+              onSelected: (NivelEducativo? value) {
+                setState(() {
+                  level = value;
+                });
+              },
+              dropdownMenuEntries: NivelEducativo.values
+                  .map<DropdownMenuEntry<NivelEducativo>>(
+                      (NivelEducativo value) {
+                String label;
+                switch (value) {
+                  case NivelEducativo.inicial:
+                    label = 'Inicial';
+                    break;
+                  case NivelEducativo.primario:
+                    label = 'Primario';
+                    break;
+                  case NivelEducativo.secundario:
+                    label = 'Secundario';
+                    break;
+                }
+                return DropdownMenuEntry<NivelEducativo>(
+                  value: value,
+                  label: label,
+                );
+              }).toList(),
               hintText: 'Nivel Educativo',
             ),
             _gap,
@@ -323,14 +344,20 @@ class _FormContentState extends State<FormContent> {
                         .grabaFormularioInscripcion(formObject);
                     print(response ? 'se envio bien' : 'se envio mal');
                     if (response) {
-                      AlertDialog(
-                          title: Text('El formulario se envió correctamente'),
-                          actions: [
-                            ElevatedButton(
-                              onPressed: () => Navigator.pop(super.context),
-                              child: Text('Cerrar'),
-                            ),
-                          ]).build(super.context);
+                      showDialog(
+                          context: super.context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title:
+                                  Text('El formulario se envió correctamente'),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () => Navigator.pop(super.context),
+                                  child: Text('Cerrar'),
+                                ),
+                              ],
+                            );
+                          });
                     } else {
                       showDialog(
                           context: super.context,
@@ -350,56 +377,12 @@ class _FormContentState extends State<FormContent> {
                           });
                     }
                   }
-
-                  //Falta vformKeyficar por las cuentas guardadas en firebase.
                 },
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class DropdownMenuExample extends StatefulWidget {
-  final List<String> itemList;
-  final String hintText;
-
-  const DropdownMenuExample({
-    super.key,
-    required this.itemList,
-    required this.hintText,
-  });
-
-  @override
-  State<DropdownMenuExample> createState() =>
-      _DropdownMenuExampleState(itemList: itemList, hintText: hintText);
-}
-
-class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-  String dropdownValue = '';
-  final List<String> itemList;
-  final String hintText;
-  _DropdownMenuExampleState({required this.itemList, required this.hintText});
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownMenu<String>(
-      width: MediaQuery.of(context).size.width > 600
-          ? 600
-          : MediaQuery.of(context).size.width,
-      onSelected: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      dropdownMenuEntries:
-          levels.map<DropdownMenuEntry<String>>((String value) {
-        return DropdownMenuEntry<String>(value: value, label: value);
-      }).toList(),
-      hintText: hintText,
     );
   }
 }
