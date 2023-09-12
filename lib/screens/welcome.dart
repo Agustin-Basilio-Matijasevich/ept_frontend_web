@@ -3,12 +3,16 @@ import 'package:ept_frontend/screens/about.dart';
 import 'package:ept_frontend/screens/comment_section.dart';
 import 'package:ept_frontend/screens/contacts.dart';
 import 'package:ept_frontend/screens/download.dart';
+import 'package:ept_frontend/screens/enrolment.dart';
 import 'package:ept_frontend/screens/photo_gallery.dart';
 import 'package:ept_frontend/screens/test_screen.dart';
 import 'package:ept_frontend/widgets/footer.dart';
 import 'package:flutter/material.dart';
-import 'package:ept_frontend/screens/login2.dart';
+import 'package:ept_frontend/screens/login.dart';
+import 'package:ept_frontend/screens/Educative_Levels.dart';
+import '../widgets/login_button.dart';
 //import 'package:flutter/services.dart';
+
 
 class Welcome extends StatelessWidget {
   Welcome({super.key});
@@ -16,7 +20,9 @@ class Welcome extends StatelessWidget {
   List<String> images = [];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   
+    bool esPantallaChica = MediaQuery.of(context).size.width < 600; 
+
     Widget _gap() => SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 42.0,
@@ -26,27 +32,21 @@ class Welcome extends StatelessWidget {
         );
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bienvenido a Educar Para Trasformar'),
+        title: Text('Bienvenido a Educar Para Trasformar',
+        style: esPantallaChica 
+        ? const TextStyle(
+          fontSize: 17
+        )
+        : const TextStyle(
+          fontSize: null
+        )
+        ),
+        
         backgroundColor: Colors.lightBlue.shade300,
         foregroundColor: Colors.white,
         elevation: 0.0,
         actions: <Widget>[
-          TextButton.icon(
-            style: const ButtonStyle(
-              foregroundColor: MaterialStatePropertyAll(Colors.white),
-            ),
-            icon: const Icon(Icons.person),
-            label: const Text(
-              'Ingresar',
-              style: TextStyle(fontSize: 18),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),
-              );
-            },
-          ),
+          LoginButton(),
         ],
       ),
       drawer: Drawer(
@@ -72,6 +72,18 @@ class Welcome extends StatelessWidget {
                   context,
                   MaterialPageRoute<void>(
                     builder: (BuildContext context) => AboutUs(),
+                  ),
+                ),
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.school),
+              title: const Text('Niveles Educativos'),
+              onTap: () => {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => Educative_Levels(),
                   ),
                 ),
               },
@@ -125,6 +137,18 @@ class Welcome extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.article_outlined),
+              title: const Text('Inscripción'),
+              onTap: () => {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => EnrolmentForm(),
+                  ),
+                ),
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.science),
               title: const Text('TEST'),
               onTap: () => {
@@ -139,32 +163,64 @@ class Welcome extends StatelessWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Image.asset("assets/images/backgroundWhiteBlur.jpeg")
-                      .image,
-                  fit: BoxFit.cover,
-                  alignment: AlignmentDirectional.bottomCenter,
-                ),
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  _Logo(),
-                  _CompanyDescription(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 600) {            
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Image.asset("assets/images/backgroundWhiteBlur.jpeg").image,
+                        fit: BoxFit.cover,
+                        alignment: AlignmentDirectional.bottomCenter,
+                      ),
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        _Logo(),
+                        _CompanyDescription(),
+                      ],
+                    ),
+                  ),
+                  const PageFooter(),
                 ],
               ),
-            ),
-            const PageFooter(),
-          ],
-        ),
+            );
+          } else {            
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Image.asset("assets/images/backgroundWhiteBlur.jpeg").image,
+                        fit: BoxFit.cover,
+                        alignment: AlignmentDirectional.bottomCenter,
+                      ),
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        _Logo(),
+                        _CompanyDescription(),
+                      ],
+                    ),
+                  ),
+                  const PageFooter(),
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }
@@ -175,20 +231,34 @@ class _CompanyDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
+  bool esPantallaChica = MediaQuery.of(context).size.width < 600; 
+    
+    return Text(
       'Inspiramos, desafiamos y empoderamos a todos\n'
       'nuestros alumnos a ser miembros comprometidos\n'
       'y éticos de una comunidad global, para que se\n'
       'conviertan en agentes de cambio conscientes de\n '
       'sí mismos,seguros, innovadores y colaborativos.',
-      style: TextStyle(
+      style: esPantallaChica 
+      ? const TextStyle(
         //fontFamily:
         color: Color(0xFF0c245e),
-        fontSize: 40,
+        fontSize: 30,
+        //fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.bold,
+        fontStyle: FontStyle.italic,
+      )
+      :const TextStyle(
+        //fontFamily:
+        color: Color(0xFF0c245e),
+        fontSize: 42,
         //fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold,
         fontStyle: FontStyle.italic,
       ),
+      textAlign: esPantallaChica 
+      ? TextAlign.center
+      : null
     );
   }
 }
@@ -198,10 +268,15 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool esPantallaChica = MediaQuery.of(context).size.width < 600;
+
     return Center(
       child: Image.asset(
         "assets/images/logo.png",
         scale: 1,
+        width: esPantallaChica 
+        ? 350
+        : null        
       ),
     );
   }

@@ -1,8 +1,9 @@
+import 'package:ept_frontend/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ept_frontend/services/auth.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -181,10 +182,28 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                   ),
                 ),
                 onPressed: () async {
-                  Future login;
+                  final bool loginResponse;
                   if (_formKey.currentState!.validate()) {
-                    login = auth.login(email!, password!);
-                    // print(login.toString());
+                    loginResponse = await auth.login(email!, password!);
+                    if (loginResponse) {
+                      Navigator.of(navigatorKey.currentContext!).pop();
+                    } else {
+                      showDialog(
+                          context: navigatorKey.currentContext!,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Respuesta Login"),
+                              content: Text("ERROR PERRIN"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Aceptar"))
+                              ],
+                            );
+                          });
+                    }
                   }
 
                   //Falta vformKeyficar por las cuentas guardadas en firebase.
