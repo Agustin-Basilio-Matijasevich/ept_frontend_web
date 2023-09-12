@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 //import 'package:url_launcher/url_launcher.dart';
 import 'package:ept_frontend/screens/under_construction.dart';
+import 'package:provider/provider.dart';
+
+import '../models/usuario.dart';
 
 enum DownloadStatus {
   notDownloaded,
@@ -29,6 +32,8 @@ class DownloadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Usuario usuario = Provider.of<Usuario>(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: Row(
