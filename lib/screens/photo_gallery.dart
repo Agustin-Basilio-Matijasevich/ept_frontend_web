@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ept_frontend/services/gallery.dart';
 
 class Gallery extends StatelessWidget {
   Gallery({super.key});
-
-  List<Image> images = [
-    Image.network('https://i.imgur.com/KX9y4aS.jpeg'),
-    Image.network('https://i.imgur.com/fStNDa9.jpeg'),
-    Image.network('https://i.imgur.com/oV2RFkL.jpeg'),
-  ];
 
   @override
   Widget build(BuildContext context) {
     double contextHeight = MediaQuery.of(context).size.height;
     double contextWidth = MediaQuery.of(context).size.width;
+    List<Image> imagenes;
 
+    void cargarImagenes() async {
+      List<String> urls = await GaleriaIMGService().getGalleryIMGS();
+      print(urls);
+      imagenes = urls
+          .map(
+            (element) => Image.network(element),
+          )
+          .toList();
+    }
+
+    cargarImagenes();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        title: const Text('Galeria de imagenes'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -39,7 +47,61 @@ class Gallery extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [_GalleryWidget(images: images)],
+              children: [
+                FutureBuilder(
+                    future: GaleriaIMGService().getGalleryIMGS(),
+                    initialData: [CircularProgressIndicator()],
+                    builder: (context, snapshot) {
+                      return Container(
+                          height: contextHeight < 400 ? contextHeight : 400,
+                          width: contextWidth < 800 ? contextWidth : 800,
+                          child: CarouselSlider.builder(
+                              itemCount: snapshot.data?.length,
+                              options: CarouselOptions(
+                                height:
+                                    contextHeight < 400 ? contextHeight : 400,
+                                aspectRatio: 16 / 9,
+                                viewportFraction: 0.8,
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                reverse: false,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 3),
+                                autoPlayAnimationDuration:
+                                    const Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enlargeCenterPage: true,
+                                enlargeFactor: 0.3,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                              itemBuilder: (BuildContext context, int itemIndex,
+                                  int pageViewIndex) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text('Error: ${snapshot.error}'),
+                                  );
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return Center(
+                                    child: Text('No se encontraron imágenes.'),
+                                  );
+                                } else {
+                                  // Mostrar la lista de imágenes
+                                  int itemCount = snapshot.data!.length;
+
+                                  return Container(
+                                    child: Image.network(
+                                        snapshot.data![itemIndex] as String),
+                                  );
+                                }
+                              }));
+                    }),
+              ],
             ),
           ],
         ),
@@ -60,6 +122,9 @@ class _GalleryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double contextHeight = MediaQuery.of(context).size.height;
     double contextWidth = MediaQuery.of(context).size.width;
+
+    () async {};
+
     return Container(
       height: contextHeight < 400 ? contextHeight : 400,
       width: contextWidth < 800 ? contextWidth : 800,

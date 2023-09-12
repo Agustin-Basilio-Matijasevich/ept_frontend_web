@@ -104,10 +104,11 @@ class _CommentSectionState extends State<CommentSection> {
           child: FutureBuilder(
             future: CommentsService().getComentarios(),
             initialData: <Comentario>[
-              Comentario('Cargando comentarios', '', CommentPuntaje.unaestrella)
+              Comentario(
+                  'Cargando comentarios', '', CommentPuntaje.cincoestrellas)
             ],
             builder: ((context, snapshot) {
-              return commentChild(snapshot.data!);
+              return commentChild(snapshot.data! as List<Comentario>);
             }),
           ),
         ),
@@ -135,7 +136,7 @@ class _RatingDialogState extends State<RatingDialog> {
 
   @override
   Widget build(BuildContext context) {
-    CommentPuntaje value = CommentPuntaje.tresestrellas;
+    CommentPuntaje? value;
     return AlertDialog(
       title: Text('Ingrese la calificación que nos daría'),
       content: RatingBar.builder(
@@ -155,10 +156,14 @@ class _RatingDialogState extends State<RatingDialog> {
       ),
       actions: [
         ElevatedButton(
-          onPressed: () => Navigator.pop(
-            context,
-            value,
-          ),
+          onPressed: () {
+            if (value != null) {
+              Navigator.pop(
+                context,
+                value,
+              );
+            }
+          },
           child: const Text('Enviar'),
         ),
       ],

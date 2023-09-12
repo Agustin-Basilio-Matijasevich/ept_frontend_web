@@ -193,7 +193,7 @@ class EstadoContenidoForm extends State<ContenidoForm> {
                           builder: (context) {
                             return AlertDialog(
                               title: Text("Respuesta Login"),
-                              content: Text("ERROR PERRIN"),
+                              content: Text("Las credenciales son incorrectas"),
                               actions: [
                                 TextButton(
                                     onPressed: () {
