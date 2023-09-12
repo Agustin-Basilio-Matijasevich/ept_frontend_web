@@ -15,7 +15,6 @@ class NewsService{
       coleccion = await _db.collection("noticias").get();
     }
     catch (e){
-      noticias.add(Noticia("ERROR","Problema al intentar obtener las Noticias","El Sistema",null));
       return noticias;
     }
 
