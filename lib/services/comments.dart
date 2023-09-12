@@ -11,7 +11,7 @@ class CommentsService {
     QuerySnapshot coleccion;
 
     try{
-      coleccion = await _db.collection("comentarios_publicos").get();
+      coleccion = await _db.collection("comentarios_publicos").orderBy("fecha", descending: true).get();
     }
     catch (e){
       return comentarios;
@@ -44,7 +44,7 @@ class CommentsService {
   //Guardar comentario
   Future<bool> grabaComentario(Comentario comentario) async {
     try{
-      await _db.collection("comentarios_publicos").add({"autor": comentario.autor,"contenido": comentario.contenido,"puntaje": comentario.puntaje.toString()});
+      await _db.collection("comentarios_publicos").add({"autor": comentario.autor,"contenido": comentario.contenido,"puntaje": comentario.puntaje.toString(),"fecha": DateTime.now().toIso8601String()});
       return true;
     }
     catch (e) {
