@@ -14,7 +14,6 @@ class CommentsService {
       coleccion = await _db.collection("comentarios_publicos").get();
     }
     catch (e){
-      comentarios.add(Comentario("ERROR","Problema al intentar obtener los comentarios",CommentPuntaje.unaestrella));
       return comentarios;
     }
 
