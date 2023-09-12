@@ -31,6 +31,7 @@ class AuthService
   {
     try //Usamos try para detectar si hay un error con la conexion al Backend
     {
+      await _auth.setPersistence(Persistence.SESSION);
       await _auth.signInWithEmailAndPassword(email: email, password: password); //Tiramos la request y esperamos que responda
       return true;
     }
