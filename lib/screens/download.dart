@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'package:url_launcher/url_launcher.dart';
 import 'package:ept_frontend/screens/under_construction.dart';
 import 'package:provider/provider.dart';
-
-import '../models/usuario.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:ept_frontend/models/usuario.dart';
 
 enum DownloadStatus {
   notDownloaded,
@@ -82,13 +81,7 @@ class DownloadSection extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push<void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          const UnderConstruction(),
-                    ),
-                  );
+                  _descargarWindowsAPP();
                 },
               ),
             ],
@@ -114,5 +107,11 @@ class _DownloadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
+  }
+}
+
+Future<void> _descargarWindowsAPP() async {
+  if (!await launchUrl(Uri.parse('https://drive.google.com/file/d/1onhY3ZZqJ9x5tNfyXkLK0HeFqsUhF5AP/view?usp=sharing'))) {
+    throw Exception('Could not launch Descargar Windows APP');
   }
 }
