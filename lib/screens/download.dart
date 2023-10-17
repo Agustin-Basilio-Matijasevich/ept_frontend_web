@@ -33,11 +33,42 @@ class DownloadSection extends StatelessWidget {
   Widget build(BuildContext context) {
     Usuario usuario = Provider.of<Usuario>(context);
 
+    List<Widget> widgets = [];
+
+    if ([
+      UserRoles.docente,
+      UserRoles.estudiante,
+      UserRoles.nodocente,
+      UserRoles.padre
+    ].contains(usuario.rol)) {
+      widgets.add(
+        ElevatedButton(
+          style: const ButtonStyle(
+            padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+          ),
+          child: const Text(
+            'Aplicación Escritorio',
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
+          onPressed: () {
+            _descargarWindowsAPP();
+          },
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center, children: widgets),
+          const SizedBox(
+            height: 1,
+            width: 50,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -59,29 +90,6 @@ class DownloadSection extends StatelessWidget {
                           const UnderConstruction(),
                     ),
                   );
-                },
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 1,
-            width: 50,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
-                ),
-                child: const Text(
-                  'Aplicación Escritorio',
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-                onPressed: () {
-                  _descargarWindowsAPP();
                 },
               ),
             ],
@@ -111,7 +119,8 @@ class _DownloadButton extends StatelessWidget {
 }
 
 Future<void> _descargarWindowsAPP() async {
-  if (!await launchUrl(Uri.parse('https://drive.google.com/file/d/1onhY3ZZqJ9x5tNfyXkLK0HeFqsUhF5AP/view?usp=sharing'))) {
+  if (!await launchUrl(Uri.parse(
+      'https://drive.google.com/file/d/1onhY3ZZqJ9x5tNfyXkLK0HeFqsUhF5AP/view?usp=sharing'))) {
     throw Exception('Could not launch Descargar Windows APP');
   }
 }

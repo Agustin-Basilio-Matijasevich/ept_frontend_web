@@ -9,17 +9,25 @@ import 'package:ept_frontend/widgets/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:ept_frontend/screens/login.dart';
 import 'package:ept_frontend/screens/Educative_Levels.dart';
+import 'package:provider/provider.dart';
+import '../models/usuario.dart';
 import '../widgets/login_button.dart';
 import 'news_section.dart';
 //import 'package:flutter/services.dart';
 
-class Welcome extends StatelessWidget {
-  Welcome({super.key});
+class Welcome extends StatefulWidget {
+  const Welcome({super.key});
 
+  @override
+  State<Welcome> createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
   List<String> images = [];
 
   @override
   Widget build(BuildContext context) {
+    Usuario? usuario = Provider.of<Usuario?>(context);
     bool esPantallaChica = MediaQuery.of(context).size.width < 600;
 
     Widget _gap() => SizedBox(
@@ -105,16 +113,25 @@ class Welcome extends StatelessWidget {
                 ),
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.download),
-              title: const Text('Descargar'),
-              onTap: () => {
-                Navigator.push<void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const DownloadSection(),
-                  ),
-                ),
+            Builder(
+              builder: (context) {
+                if (usuario != null && usuario.rol != UserRoles.norol) {
+                  return ListTile(
+                    leading: const Icon(Icons.download),
+                    title: const Text('Descargar'),
+                    onTap: () => {
+                      Navigator.push<void>(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const DownloadSection(),
+                        ),
+                      ),
+                    },
+                  );
+                } else {
+                  return const SizedBox();
+                }
               },
             ),
             ListTile(
