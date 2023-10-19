@@ -16,13 +16,13 @@ class Educative_Levels extends StatelessWidget {
           'Niveles educativos',
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: contextWidth < 600 
+      ? Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
+          Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -57,12 +57,6 @@ class Educative_Levels extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -96,12 +90,6 @@ class Educative_Levels extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -138,6 +126,113 @@ class Educative_Levels extends StatelessWidget {
             ],
           ),
         ],
+      )
+      : Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Nivel Inicial',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: myColor,
+                      ),
+                    ),
+                    ImageSlideshow(
+                      isLoop: true,
+                      autoPlayInterval: 3000,
+                      initialPage: 0,
+                      width: 350,
+                      height: 200,
+                      children: [
+                        Image.asset(
+                          'assets/images/niveles/inicial01.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          'assets/images/niveles/inicial02.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          'assets/images/niveles/inicial03.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ]
+                    )
+                  ]
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Nivel Primario',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: myColor,
+                      ),
+                    ),
+                    ImageSlideshow(
+                      isLoop: true,
+                      autoPlayInterval: 3000,
+                      initialPage: 0,
+                      width: 350,
+                      height: 200,
+                      children: [
+                        Image.asset(
+                          'assets/images/niveles/primario01.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          'assets/images/niveles/primario02.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          'assets/images/niveles/primario03.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ]
+                    )
+                  ]
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Nivel Secundario',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: myColor,
+                      ),
+                    ),
+                    ImageSlideshow(
+                      isLoop: true,
+                      autoPlayInterval: 3000,
+                      initialPage: 0,
+                      width: 350,
+                      height: 200,
+                      children: [
+                        Image.asset(
+                          'assets/images/niveles/secundario01.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          'assets/images/niveles/secundario02.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          'assets/images/niveles/secundario03.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ]
+                    )
+                  ]
+                ),
+        ]
       ),
     );
   }
