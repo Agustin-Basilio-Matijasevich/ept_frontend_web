@@ -12,7 +12,7 @@ class Educative_Levels extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: myColor,
-        title: Text(
+        title: const Text(
           'Niveles educativos',
         ),
       ),

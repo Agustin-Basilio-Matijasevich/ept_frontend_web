@@ -99,6 +99,10 @@ flutter:
     - assets/images/niveles/secundario01.jpg
     - assets/images/niveles/secundario02.jpg
     - assets/images/niveles/secundario03.jpg
+    - assets/images/english_teaching.jpg
+    - assets/images/soccer.png
+    - assets/images/student_support.jpg
+    - assets/images/swimming_pool.jpg
 
     #Gifs
     - assets/gifs/robotTyping.gif

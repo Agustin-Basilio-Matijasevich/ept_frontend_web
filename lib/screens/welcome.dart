@@ -175,10 +175,11 @@ class _WelcomeState extends State<Welcome> {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          //MOVIL
           if (constraints.maxWidth < 600) {
             return SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
+              child: Column(                
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -192,8 +193,7 @@ class _WelcomeState extends State<Welcome> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Column(                      
                       children: const <Widget>[
                         _Logo(),
                         _CompanyDescription(),
@@ -204,10 +204,11 @@ class _WelcomeState extends State<Welcome> {
                 ],
               ),
             );
+            //ESCRITORIO
           } else {
             return SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
+              child: Column(                
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -247,31 +248,29 @@ class _CompanyDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     bool esPantallaChica = MediaQuery.of(context).size.width < 600;
 
-    return Text(
-        'Inspiramos, desafiamos y empoderamos a todos\n'
-        'nuestros alumnos a ser miembros comprometidos\n'
-        'y éticos de una comunidad global, para que se\n'
-        'conviertan en agentes de cambio conscientes de\n '
-        'sí mismos,seguros, innovadores y colaborativos.',
-        softWrap: true,
-        style: esPantallaChica
-            ? const TextStyle(
-                //fontFamily:
-                color: Color(0xFF0c245e),
-                fontSize: 30,
-                //fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-              )
-            : const TextStyle(
-                //fontFamily:
-                color: Color(0xFF0c245e),
-                fontSize: 42,
-                //fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-              ),
-        textAlign: esPantallaChica ? TextAlign.center : null);
+    return Expanded(      
+      child: Text(
+          'Inspiramos, desafiamos y empoderamos a todos nuestros alumnos a ser miembros comprometidos y éticos de una comunidad global, para que se conviertan en agentes de cambio conscientes de sí mismos, seguros, innovadores y colaborativos.',
+          softWrap: true,
+          style: esPantallaChica
+              ? const TextStyle(
+                  //fontFamily:
+                  color: Color(0xFF0c245e),
+                  fontSize: 30,
+                  //fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                )
+              : const TextStyle(
+                  //fontFamily:
+                  color: Color(0xFF0c245e),
+                  fontSize: 42,
+                  //fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                ),
+          textAlign: esPantallaChica ? TextAlign.center : null),
+    );
   }
 }
 
