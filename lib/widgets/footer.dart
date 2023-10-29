@@ -24,10 +24,11 @@ class PageFooter extends StatelessWidget {
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
-            children: [
-              Row(
+             children: [
+              Row(                
                 children: [
                   Image.asset(
                     'assets/images/netBrokeWhite.png',
