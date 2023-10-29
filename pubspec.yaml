@@ -103,6 +103,7 @@ flutter:
     - assets/images/soccer.png
     - assets/images/student_support.jpg
     - assets/images/swimming_pool.jpg
+    - assets/images/defaultProfilePhoto.png
 
     #Gifs
     - assets/gifs/robotTyping.gif

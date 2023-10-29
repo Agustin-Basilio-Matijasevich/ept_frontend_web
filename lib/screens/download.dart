@@ -120,7 +120,7 @@ class _DownloadButton extends StatelessWidget {
 
 Future<void> _descargarWindowsAPP() async {
   if (!await launchUrl(Uri.parse(
-      'https://drive.google.com/file/d/1onhY3ZZqJ9x5tNfyXkLK0HeFqsUhF5AP/view?usp=sharing'))) {
+      'https://firebasestorage.googleapis.com/v0/b/ept-prod-424d6.appspot.com/o/instaladores%2Fwindows%2FEPT%20INSTALLER.zip?alt=media&token=7ee9d3ad-de0a-4dba-a348-833d8fc96036&_gl=1*6w551w*_ga*MTM1NDc2MjA5Mi4xNjkyMzE2ODcx*_ga_CW55HF8NVT*MTY5ODYwNTI0Ni43NC4xLjE2OTg2MDUzMzcuMzguMC4w'))) {
     throw Exception('Could not launch Descargar Windows APP');
   }
 }
