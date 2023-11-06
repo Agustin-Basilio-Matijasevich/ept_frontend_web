@@ -31,6 +31,8 @@ class DownloadSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Usuario usuario = Provider.of<Usuario>(context);
+    double contextHeight = MediaQuery.of(context).size.height;
+    double contextWidth = MediaQuery.of(context).size.width;
 
     List<Widget> widgets = [];
 
@@ -58,12 +60,20 @@ class DownloadSection extends StatelessWidget {
       );
     }
     return Scaffold(
-      appBar: AppBar(),
-      body: Row(
+      appBar: AppBar(
+        title: const Text(
+          'Descargas'
+        ),
+      ),
+      //ASPECTO ESCRITORIO
+      body: contextWidth > 600
+      ? Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Column(
-              mainAxisAlignment: MainAxisAlignment.center, children: widgets),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: widgets
+          ),
           const SizedBox(
             height: 1,
             width: 50,
@@ -88,7 +98,42 @@ class DownloadSection extends StatelessWidget {
             ],
           )
         ],
-      ),
+      )
+      //ASPECTO MÓVIL
+      : Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                children: widgets
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: const ButtonStyle(
+                      padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+                    ),
+                    child: const Text(
+                      'Aplicación Movil',
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                    onPressed: () {
+                      _descargarAndroidAPP();
+                    },
+                  ),
+                ],
+              )
+            ]
+          ),
+        ],
+      )
     );
   }
 }
