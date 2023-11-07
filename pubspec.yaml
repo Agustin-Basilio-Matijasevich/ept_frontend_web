@@ -104,6 +104,8 @@ flutter:
     - assets/images/student_support.jpg
     - assets/images/swimming_pool.jpg
     - assets/images/defaultProfilePhoto.png
+    - assets/images/mobile_download.png
+    - assets/images/desktop_download.png
 
     #Gifs
     - assets/gifs/robotTyping.gif
