@@ -3,125 +3,152 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ept_frontend/models/usuario.dart';
 
-enum DownloadStatus {
-  notDownloaded,
-  fetchingDownload,
-  downloading,
-  downloaded,
-}
-
-class NewDownloadSection extends StatefulWidget {
-  const NewDownloadSection({super.key});
-
-  @override
-  State<NewDownloadSection> createState() => _NewDownloadSectionState();
-}
-
-class _NewDownloadSectionState extends State<NewDownloadSection> {
-  List<Widget> availableDownloads = [];
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
 
 class DownloadSection extends StatelessWidget {
   const DownloadSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Usuario usuario = Provider.of<Usuario>(context);
     double contextHeight = MediaQuery.of(context).size.height;
     double contextWidth = MediaQuery.of(context).size.width;
-
-    List<Widget> widgets = [];
-
-    if ([
-      UserRoles.docente,
-      UserRoles.estudiante,
-      UserRoles.nodocente,
-      UserRoles.padre
-    ].contains(usuario.rol)) {
-      widgets.add(
-        ElevatedButton(
-          style: const ButtonStyle(
-            padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
-          ),
-          child: const Text(
-            'Aplicación Escritorio',
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
-          onPressed: () {
-            _descargarWindowsAPP();
-          },
-        ),
-      );
-    }
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Descargas'
-        ),
+        title: const Text('Descargas'),
       ),
-      //ASPECTO ESCRITORIO
-      body: contextWidth > 600
-      ? Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: widgets
-          ),
-          const SizedBox(
-            height: 1,
-            width: 50,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
-                ),
-                child: const Text(
-                  'Aplicación Movil',
-                  style: TextStyle(
-                    fontSize: 24,
+      body: contextWidth > 600 ?
+      //ESCRITORIO 
+      SafeArea(
+        top: true,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      'assets/images/mobile_download.png',
+                      width: 115,
+                      height: 60,
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
-                onPressed: () {
-                  _descargarAndroidAPP();
-                },
-              ),
-            ],
-          )
-        ],
+                ElevatedButton(
+                  style: const ButtonStyle(
+                    padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+                  ),
+                  child: const Text(
+                    'Aplicación Móvil',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  onPressed: () {
+                    _descargarAndroidAPP();
+                  },
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      'assets/images/desktop_download.png',
+                      width: 115,
+                      height: 60,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  style: const ButtonStyle(
+                    padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+                  ),
+                  child: const Text(
+                    'Aplicación Escritorio',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  onPressed: () {
+                    _descargarWindowsAPP();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       )
-      //ASPECTO MÓVIL
+      //MOVIL
       : Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
-                children: widgets
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    style: const ButtonStyle(
+                  Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          'assets/images/desktop_download.png',
+                          width: 115,
+                          height: 60,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: const ButtonStyle(
                       padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
                     ),
-                    child: const Text(
-                      'Aplicación Movil',
+                      child: const Text(
+                        'Aplicación Escritorio',
                       style: TextStyle(
-                        fontSize: 24,
+                      fontSize: 24,
+                      ),
+                    ),
+                    onPressed: () {
+                      _descargarWindowsAPP();
+                    },
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          'assets/images/mobile_download.png',
+                          width: 115,
+                          height: 60,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: const ButtonStyle(
+                      padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+                    ),
+                      child: const Text(
+                        'Aplicación Móvil',
+                      style: TextStyle(
+                      fontSize: 24,
                       ),
                     ),
                     onPressed: () {
@@ -129,30 +156,12 @@ class DownloadSection extends StatelessWidget {
                     },
                   ),
                 ],
-              )
-            ]
-          ),
+              ),
+            ],
+          )
         ],
       )
     );
-  }
-}
-
-class _DownloadButton extends StatelessWidget {
-  final String text;
-  final DownloadStatus status;
-  final Duration transitionDuration;
-
-  const _DownloadButton({
-    super.key,
-    required this.status,
-    required this.text,
-    this.transitionDuration = const Duration(milliseconds: 500),
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
 
